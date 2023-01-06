@@ -1,2 +1,3 @@
 #!/bin/bash
-python3 overlay-copy.py "$@"
+script_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+python3 "$script_path/overlay-copy.py" "$@"

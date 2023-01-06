@@ -1,2 +1,3 @@
 #!/bin/bash
-python3 rom-rename.py "$@"
+script_path=$(dirname "$(readlink -f "$BASH_SOURCE")")
+python3 "$script_path/rom-rename.py" "$@"
