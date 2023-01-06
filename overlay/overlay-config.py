@@ -14,9 +14,8 @@ VERSION = '1.0'
 
 
 def configure_parser():
-    parser = ArgumentParser(
-        prog='overlay-config',
-        description='Configure RetroArch overlay for local ROM collection')
+    parser = ArgumentParser(prog='overlay-config',
+                            description='Configure RetroArch overlays for local ROM collection')
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument('-d', '--directory', help='Source directory path')
     parser.add_argument('-e', '--extension', default='png', help='File type of overlay image(s)')
@@ -25,7 +24,8 @@ def configure_parser():
     parser.add_argument('-ot', '--overlay-tpl', default=PATH.TEMPLATE.OVERLAY_CONFIG,
                         help='Overlay config template path')
     parser.add_argument('-p', '--platform', help='Name of target platform', required=True)
-    parser.add_argument('-rt', '--rom-tpl', default=PATH.TEMPLATE.ROM_CONFIG, help='ROM config template path')
+    parser.add_argument('-rt', '--rom-tpl', default=PATH.TEMPLATE.ROM_CONFIG,
+                        help='ROM config template path')
     parser.add_argument('-v', '--version', action='version', help='Print program version',
                         version='%(prog)s ' + VERSION)
     return parser
