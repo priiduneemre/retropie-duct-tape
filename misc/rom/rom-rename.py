@@ -71,9 +71,9 @@ def get_rom_paths(arguments):
 def normalize(path):
     without_parentheses = normalize_parentheses(path.stem)
     converted_numerals = normalize_numerals(without_parentheses)
-    snake_cased = '_'.join(converted_numerals.split())
-    without_special = re.sub(r'\W+', '', snake_cased)
-    return (without_special + path.suffix).lower()
+    without_special = re.sub(r'([^\w ]|_)+', '', converted_numerals)
+    snake_cased = '_'.join(without_special.split())
+    return (snake_cased + path.suffix).lower()
 
 
 def normalize_parentheses(name):
