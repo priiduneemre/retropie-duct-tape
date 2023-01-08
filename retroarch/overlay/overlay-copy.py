@@ -8,12 +8,12 @@ TARGET_PATH = '.'
 VERSION = '1.0'
 
 
-def run():
+def main(args):
     configure_logger()
-    args = configure_parser().parse_args()
+    arguments = configure_parser().parse_args(args)
     logging.info('%s %s - Process started', get_script_name(), VERSION)
-    logging.debug('Library path is \'%s\'', args.library)
-    copy_images(args)
+    logging.debug('Library path is \'%s\'', arguments.library)
+    copy_images(arguments)
     logging.info('%s %s - Process finished', get_script_name(), VERSION)
 
 
@@ -71,4 +71,4 @@ def copy_image(filename, arguments):
 
 
 if __name__ == '__main__':
-    run()
+    main(sys.argv)

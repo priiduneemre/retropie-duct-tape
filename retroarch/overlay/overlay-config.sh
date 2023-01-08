@@ -1,3 +1,9 @@
 #!/bin/bash
-script_path=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-python3 "$script_path/overlay-config.py" "$@"
+
+function main() {
+  local script_path
+  script_path=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+  python3 "$script_path/overlay-config.py" "$@"
+}
+
+main "$@"

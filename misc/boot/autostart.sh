@@ -1,5 +1,6 @@
 #!/bin/bash
-function run() {
+
+function main() {
   disable_terminal
   play_splashscreen &
   run_es
@@ -31,4 +32,4 @@ function enable_terminal() {
   clear
 }
 
-run
+main

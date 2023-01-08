@@ -1,5 +1,8 @@
 #!/bin/bash
-(
+
+function exit_es() {
   sleep 0.5
   killall -SIGINT emulationstation
-) > /dev/null 2>&1 &
+}
+
+exit_es > /dev/null 2>&1 &

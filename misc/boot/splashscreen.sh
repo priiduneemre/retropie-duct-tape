@@ -1,5 +1,6 @@
 #!/bin/bash
-function run() {
+
+function main() {
   local source_dir="$1"
   local iterations="$2"
   local duration="$3"
@@ -45,4 +46,4 @@ fade_in="0.3"
 fade_out="0.3"
 pause="0.1"
 
-run "$source_dir" "$iterations" "$duration" "$fade_in" "$fade_out" "$pause"
+main "$source_dir" "$iterations" "$duration" "$fade_in" "$fade_out" "$pause"

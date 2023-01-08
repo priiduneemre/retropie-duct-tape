@@ -14,12 +14,12 @@ PATH = Namespace(
 VERSION = '1.0'
 
 
-def run():
+def main(args):
     configure_logger()
-    args = configure_parser().parse_args()
+    arguments = configure_parser().parse_args(args)
     logging.info('%s %s - Process started', get_script_name(), VERSION)
-    logging.debug('Target platform is \'%s\'', args.platform)
-    create_configs(args)
+    logging.debug('Target platform is \'%s\'', arguments.platform)
+    create_configs(arguments)
     logging.info('%s %s - Process finished', get_script_name(), VERSION)
 
 
@@ -110,4 +110,4 @@ def write_file(pathname, content):
 
 
 if __name__ == '__main__':
-    run()
+    main(sys.argv)

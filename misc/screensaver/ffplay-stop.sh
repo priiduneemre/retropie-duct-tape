@@ -1,7 +1,21 @@
 #!/bin/bash
-killall -r ffplay-start.sh
-killall ffplay
-chvt 2
-chvt 1
-sleep 0.02
-clear
+
+function main() {
+  stop_playback
+  repaint
+}
+
+function stop_playback() {
+  killall -r ffplay-start.sh
+  killall ffplay
+}
+
+function repaint() {
+  chvt 2
+  chvt 1
+  # Empirical delay; try changing this if you encounter artifacting
+  sleep 0.02
+  clear
+}
+
+main
