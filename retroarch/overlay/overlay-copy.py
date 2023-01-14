@@ -4,17 +4,17 @@ from argparse import ArgumentParser
 from pathlib import Path
 from shutil import copy
 
+SCRIPT_NAME = 'overlay-copy'
 TARGET_PATH = '.'
 VERSION = '1.0'
 
 
 def main(args):
     configure_logger()
-    arguments = configure_parser().parse_args(args)
-    logging.info('%s %s - Process started', get_script_name(), VERSION)
-    logging.debug('Library path is \'%s\'', arguments.library)
+    arguments = parse_arguments(args)
+    logging.info('%s %s - Process started', SCRIPT_NAME, VERSION)
     copy_images(arguments)
-    logging.info('%s %s - Process finished', get_script_name(), VERSION)
+    logging.info('%s %s - Process finished', SCRIPT_NAME, VERSION)
 
 
 def configure_logger():
@@ -22,9 +22,15 @@ def configure_logger():
     logging.basicConfig(format=pattern, level=logging.DEBUG, stream=sys.stdout)
 
 
+def parse_arguments(args):
+    arguments = configure_parser().parse_args(args[1:])
+    logging.debug('Library path is \'%s\'', arguments.library)
+    return arguments
+
+
 def configure_parser():
     parser = ArgumentParser(
-        prog=get_script_name(),
+        prog=SCRIPT_NAME,
         description='Copy RetroArch overlay images from library to local collection')
     reference = parser.add_mutually_exclusive_group(required=True)
     reference.add_argument('-d', '--directory', help='ROM directory path')
@@ -35,10 +41,6 @@ def configure_parser():
     parser.add_argument('-v', '--version', action='version', help='Print program version',
                         version='%(prog)s ' + VERSION)
     return parser
-
-
-def get_script_name():
-    return Path(sys.argv[0]).stem
 
 
 def copy_images(arguments):

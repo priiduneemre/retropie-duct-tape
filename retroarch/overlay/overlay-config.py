@@ -11,16 +11,16 @@ PATH = Namespace(
         ROM_CONFIG='template/rom-config.tpl'
     )
 )
+SCRIPT_NAME = 'overlay-config'
 VERSION = '1.0'
 
 
 def main(args):
     configure_logger()
-    arguments = configure_parser().parse_args(args)
-    logging.info('%s %s - Process started', get_script_name(), VERSION)
-    logging.debug('Target platform is \'%s\'', arguments.platform)
+    arguments = parse_arguments(args)
+    logging.info('%s %s - Process started', SCRIPT_NAME, VERSION)
     create_configs(arguments)
-    logging.info('%s %s - Process finished', get_script_name(), VERSION)
+    logging.info('%s %s - Process finished', SCRIPT_NAME, VERSION)
 
 
 def configure_logger():
@@ -28,8 +28,14 @@ def configure_logger():
     logging.basicConfig(format=pattern, level=logging.DEBUG, stream=sys.stdout)
 
 
+def parse_arguments(args):
+    arguments = configure_parser().parse_args(args[1:])
+    logging.debug('Target platform is \'%s\'', arguments.platform)
+    return arguments
+
+
 def configure_parser():
-    parser = ArgumentParser(prog=get_script_name(),
+    parser = ArgumentParser(prog=SCRIPT_NAME,
                             description='Configure RetroArch overlays for local ROM collection')
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument('-d', '--directory', help='Source directory path')
@@ -44,10 +50,6 @@ def configure_parser():
     parser.add_argument('-v', '--version', action='version', help='Print program version',
                         version='%(prog)s ' + VERSION)
     return parser
-
-
-def get_script_name():
-    return Path(sys.argv[0]).stem
 
 
 def create_configs(arguments):

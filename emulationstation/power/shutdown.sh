@@ -1,17 +1,13 @@
 #!/bin/bash
 
 function main() {
-  schedule_halt
+  shutdown -h
   exit_es
   shutdown -h now
 }
 
-function schedule_halt() {
-  sleep 0.5
-  shutdown -h
-}
-
 function exit_es() {
+  sleep 0.5
   killall -SIGINT emulationstation
   sleep 2
 }

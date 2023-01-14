@@ -1,17 +1,13 @@
 #!/bin/bash
 
 function main() {
-  schedule_reboot
+  shutdown -r
   exit_es
   shutdown -r now
 }
 
-function schedule_reboot() {
-  sleep 0.5
-  shutdown -r
-}
-
 function exit_es() {
+  sleep 0.5
   killall -SIGINT emulationstation
   sleep 2
 }
