@@ -67,9 +67,15 @@ def copy_image(filename, arguments):
     source_path = Path(arguments.library).joinpath(filename)
     if source_path.exists():
         target_path = Path(arguments.target).joinpath(filename)
-        logging.info('Copying overlay image to \'%s\'', target_path)
-        target_path.parent.mkdir(parents=True, exist_ok=True)
-        copy(source_path, target_path)
+        copy_from_to(source_path, target_path)
+    else:
+        logging.warning('Overlay image \'%s\' not found', filename)
+
+
+def copy_from_to(source_path, target_path):
+    logging.info('Copying overlay image to \'%s\'', target_path)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    copy(source_path, target_path)
 
 
 if __name__ == '__main__':
