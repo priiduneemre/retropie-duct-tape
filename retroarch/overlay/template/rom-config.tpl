@@ -1,1 +1,2 @@
-input_overlay = "/home/nemp/RetroPie/bezels/${platform}/${name}.cfg"
+input_overlay_enable = "true"
+input_overlay = "~/RetroPie/bezels/${platform}/${name}.cfg"
