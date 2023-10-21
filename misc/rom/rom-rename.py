@@ -85,7 +85,7 @@ def normalize_parentheses(name):
 
 
 def normalize_track(name):
-    return re.sub(r'\(Track (\d+)\)', r'track\1', name, flags=re.I)
+    return re.sub(r'\(Track 0*(\d+)\)', r'track\1', name, flags=re.I)
 
 
 def normalize_numerals(name):
