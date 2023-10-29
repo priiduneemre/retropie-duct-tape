@@ -13,7 +13,7 @@ function stop_playback() {
 function repaint() {
   chvt 2
   chvt 1
-  # Empirical delay; try changing this if you encounter artifacting
+  # Empirical delay; try increasing this if there is artifacting
   sleep 0.02
   clear
 }

@@ -12,6 +12,7 @@ VERSION = '1.0'
 
 
 def main(args):
+    """Main entry point"""
     configure_logger()
     arguments = parse_arguments(args)
     logging.info('%s %s - Process started', SCRIPT_NAME, VERSION)
@@ -20,17 +21,20 @@ def main(args):
 
 
 def configure_logger():
+    """Configure logging"""
     pattern = '%(asctime)s %(levelname)s - %(message)s'
     logging.basicConfig(format=pattern, level=logging.DEBUG, stream=sys.stdout)
 
 
 def parse_arguments(args):
+    """Parse CLI arguments"""
     arguments = configure_parser().parse_args(args[1:])
     logging.debug('Active ruleset is \'%s\'', arguments.ruleset)
     return arguments
 
 
 def configure_parser():
+    """Configure CLI argument parser"""
     parser = ArgumentParser(prog=SCRIPT_NAME,
                             description='Rename local ROM files according to preset rules')
     source = parser.add_mutually_exclusive_group(required=True)
@@ -45,6 +49,7 @@ def configure_parser():
 
 
 def rename_all(arguments):
+    """Rename all ROM files"""
     rom_paths = get_rom_paths(arguments)
     if not rom_paths:
         logging.info('No ROM files found, nothing to do')
@@ -54,6 +59,7 @@ def rename_all(arguments):
 
 
 def rename(source_path, target_dir):
+    """Rename ROM file according to ruleset"""
     normalized_name = normalize(source_path)
     target_path = Path(target_dir).joinpath(normalized_name)
     logging.info('Renaming ROM file \'%s\' to \'%s\'', source_path, target_path)
@@ -62,6 +68,7 @@ def rename(source_path, target_dir):
 
 
 def get_rom_paths(arguments):
+    """Extract ROM paths"""
     source_file = arguments.file
     if source_file:
         return Path(source_file)
@@ -71,6 +78,7 @@ def get_rom_paths(arguments):
 
 
 def normalize(path):
+    """Normalize ROM filename"""
     without_parentheses = normalize_parentheses(path.stem)
     converted_numerals = normalize_numerals(without_parentheses)
     without_special = re.sub(r'([^\w ]|_)+', '', converted_numerals)
@@ -79,16 +87,19 @@ def normalize(path):
 
 
 def normalize_parentheses(name):
+    """Normalize filename parentheses"""
     flattened_track = normalize_track(name)
     without_region = re.sub(r'[(\[].*?[)\]]', '', flattened_track)
     return without_region.strip()
 
 
 def normalize_track(name):
+    """Normalize filename track number"""
     return re.sub(r'\(Track 0*(\d+)\)', r'track\1', name, flags=re.I)
 
 
 def normalize_numerals(name):
+    """Normalize filename numerals"""
     result = name
     for roman, arabic in ROMAN_NUMERALS.items():
         pattern = r'(\s)({})([\s:]|\Z)'.format(roman)
