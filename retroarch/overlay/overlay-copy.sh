@@ -3,7 +3,7 @@
 function main() {
   local script_path
   script_path=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-  python3 "$script_path/overlay-copy.py" "$@"
+  python3 "$script_path/overlay_copy.py" "$@"
 }
 
 main "$@"
